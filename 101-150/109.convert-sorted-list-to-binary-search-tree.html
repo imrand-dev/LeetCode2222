@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>109.convert-sorted-list-to-binary-search-tree</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/style.min.css" />
+<link rel="stylesheet" href="../static/highlight.min.css" />
+<link rel="stylesheet" href="../static/temporary.min.css" />
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="../static/custom.css">
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="109.-Convert-Sorted-List-to-Binary-Search-Tree">109. Convert Sorted List to Binary Search Tree<a class="anchor-link" href="#109.-Convert-Sorted-List-to-Binary-Search-Tree">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>Given the <code>head</code> of a singly linked list where elements are <strong>sorted in ascending order</strong>, convert it to a height balanced BST.</p><p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of <em>every</em> node never differ by more than 1.</p><p>&nbsp;</p>
+<p><strong>Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/08/17/linked.jpg" style="width: 600px; height: 466px;" />
+<pre>
+<strong>Input:</strong> head = [-10,-3,0,5,9]
+<strong>Output:</strong> [0,-3,9,-10,null,5]
+<strong>Explanation:</strong> One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.
+</pre>
+
+<p><strong>Example 2:</strong></p><pre>
+<strong>Input:</strong> head = []
+<strong>Output:</strong> []
+</pre><p><strong>Example 3:</strong></p><pre>
+<strong>Input:</strong> head = [0]
+<strong>Output:</strong> [0]
+</pre><p><strong>Example 4:</strong></p><pre>
+<strong>Input:</strong> head = [1,3]
+<strong>Output:</strong> [3,1]
+</pre><p>&nbsp;</p>
+<p><strong>Constraints:</strong></p><ul>
+    <li>The number of nodes in <code>head</code> is in the range <code>[0, 2 * 10<sup>4</sup>]</code>.</li>
+    <li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Difficulty:-Medium,-AC-rate:-53.0%">Difficulty: Medium, AC rate: 53.0%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-53.0%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
+<li>Linked List</li>
+<li>Divide and Conquer</li>
+<li>Tree</li>
+<li>Binary Search Tree</li>
+<li>Binary Tree</li>
+</ul>
+<h4 id="Links:">Links:<a class="anchor-link" href="#Links:">&#182;</a></h4><p>🎁 <a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/">Question Detail</a> | 🎉 <a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/solution/">Question Solution</a> | 💬 <a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/discuss/?orderBy=most_votes">Question Discussion</a></p>
+<h4 id="Hints:">Hints:<a class="anchor-link" href="#Hints:">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[-10,-3,0,5,9]</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p>What's your idea?</p>
+<p>类似 #108 题的思路，分治</p>
+<p>先遍历一边整个 list，拿到长度，然后将长度划分为左中右，递归地对左右半区分别构建平衡二叉树</p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for singly-linked list.</span>
+<span class="k">class</span> <span class="nc">ListNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
+<span class="c1"># Definition for a binary tree node.</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sortedListToBST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+        <span class="n">list_length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="k">while</span> <span class="n">p</span><span class="p">:</span>
+            <span class="n">list_length</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">next</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">list_length</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">size</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">head</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        
+        <span class="n">left_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">left_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">left_size</span><span class="p">)</span>
+        
+        <span class="n">middle_list_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">advance</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">left_size</span><span class="p">)</span>
+        
+        <span class="n">right_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">-</span> <span class="n">left_size</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">right_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="n">middle_list_node</span><span class="o">.</span><span class="n">next</span><span class="p">,</span> <span class="n">right_size</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">middle_list_node</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">left_tree</span><span class="p">,</span> <span class="n">right_tree</span><span class="p">)</span>
+        
+        
+    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="n">ListNode</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListNode</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">length</span><span class="p">:</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">head</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">visualize_binary_tree</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">sortedListToBST</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">sortedListToBST</span><span class="p">(</span><span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="44pt" height="44pt"
+ viewBox="0.00 0.00 44.00 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 40,-40 40,4 -4,4"/>
+<!-- 0x7f869d1d0250 -->
+<g id="node1" class="node">
+<title>0x7f869d1d0250</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n1</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">n1</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">sortedListToBST</span><span class="p">(</span><span class="n">n1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="95pt" height="116pt"
+ viewBox="0.00 0.00 94.50 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 90.5,-112 90.5,4 -4,4"/>
+<!-- 0x7f869d1c28b0 -->
+<g id="node1" class="node">
+<title>0x7f869d1c28b0</title>
+<ellipse fill="none" stroke="black" cx="58" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="58" y="-86.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7f869d1c2ee0 -->
+<g id="node2" class="node">
+<title>0x7f869d1c2ee0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7f869d1c28b0&#45;&gt;0x7f869d1c2ee0 -->
+<g id="edge1" class="edge">
+<title>0x7f869d1c28b0&#45;&gt;0x7f869d1c2ee0</title>
+<path fill="none" stroke="black" d="M49.32,-73.81C44.18,-64.82 37.56,-53.23 31.73,-43.03"/>
+<polygon fill="black" stroke="black" points="34.66,-41.11 26.66,-34.16 28.59,-44.58 34.66,-41.11"/>
+</g>
+<!-- 0x7f869d1c28b0invis_m -->
+<!-- 0x7f869d1c28b0&#45;&gt;0x7f869d1c28b0invis_m -->
+<!-- 0x7f869d1c28b0invis_r -->
+<!-- 0x7f869d1c28b0&#45;&gt;0x7f869d1c28b0invis_r -->
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">helper</span> <span class="kn">import</span> <span class="n">array_to_list</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">array_to_list</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">sortedListToBST</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="208pt" height="198pt"
+ viewBox="0.00 0.00 208.25 197.89" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 193.89)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-193.89 204.25,-193.89 204.25,4 -4,4"/>
+<!-- 0x7f869d1340a0 -->
+<g id="node1" class="node">
+<title>0x7f869d1340a0</title>
+<ellipse fill="none" stroke="black" cx="124.75" cy="-171.89" rx="18" ry="18"/>
+<text text-anchor="middle" x="124.75" y="-168.19" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- 0x7f869d1c2fa0 -->
+<g id="node2" class="node">
+<title>0x7f869d1c2fa0</title>
+<ellipse fill="none" stroke="black" cx="78.75" cy="-99.69" rx="18.4" ry="18.4"/>
+<text text-anchor="middle" x="78.75" y="-95.99" font-family="Times,serif" font-size="14.00">&#45;3</text>
+</g>
+<!-- 0x7f869d1340a0&#45;&gt;0x7f869d1c2fa0 -->
+<g id="edge1" class="edge">
+<title>0x7f869d1340a0&#45;&gt;0x7f869d1c2fa0</title>
+<path fill="none" stroke="black" d="M115.22,-156.35C109.05,-146.94 100.89,-134.48 93.85,-123.74"/>
+<polygon fill="black" stroke="black" points="96.68,-121.67 88.27,-115.22 90.82,-125.5 96.68,-121.67"/>
+</g>
+<!-- 0x7f869d1340a0invis_m -->
+<!-- 0x7f869d1340a0&#45;&gt;0x7f869d1340a0invis_m -->
+<!-- 0x7f869d134040 -->
+<g id="node7" class="node">
+<title>0x7f869d134040</title>
+<ellipse fill="none" stroke="black" cx="167.75" cy="-99.69" rx="18" ry="18"/>
+<text text-anchor="middle" x="167.75" y="-95.99" font-family="Times,serif" font-size="14.00">9</text>
+</g>
+<!-- 0x7f869d1340a0&#45;&gt;0x7f869d134040 -->
+<g id="edge6" class="edge">
+<title>0x7f869d1340a0&#45;&gt;0x7f869d134040</title>
+<path fill="none" stroke="black" d="M133.87,-156.01C139.51,-146.79 146.88,-134.76 153.31,-124.27"/>
+<polygon fill="black" stroke="black" points="156.4,-125.92 158.64,-115.56 150.43,-122.26 156.4,-125.92"/>
+</g>
+<!-- 0x7f869d1b5ee0 -->
+<g id="node3" class="node">
+<title>0x7f869d1b5ee0</title>
+<ellipse fill="none" stroke="black" cx="22.75" cy="-22.75" rx="23" ry="23"/>
+<text text-anchor="middle" x="22.75" y="-19.05" font-family="Times,serif" font-size="14.00">&#45;10</text>
+</g>
+<!-- 0x7f869d1c2fa0&#45;&gt;0x7f869d1b5ee0 -->
+<g id="edge2" class="edge">
+<title>0x7f869d1c2fa0&#45;&gt;0x7f869d1b5ee0</title>
+<path fill="none" stroke="black" d="M68.21,-84.6C60.87,-74.77 50.86,-61.37 42.1,-49.65"/>
+<polygon fill="black" stroke="black" points="44.79,-47.4 36,-41.49 39.18,-51.59 44.79,-47.4"/>
+</g>
+<!-- 0x7f869d1c2fa0invis_m -->
+<!-- 0x7f869d1c2fa0&#45;&gt;0x7f869d1c2fa0invis_m -->
+<!-- 0x7f869d1c2fa0invis_r -->
+<!-- 0x7f869d1c2fa0&#45;&gt;0x7f869d1c2fa0invis_r -->
+<!-- 0x7f869d190c40 -->
+<g id="node8" class="node">
+<title>0x7f869d190c40</title>
+<ellipse fill="none" stroke="black" cx="131.75" cy="-22.75" rx="18" ry="18"/>
+<text text-anchor="middle" x="131.75" y="-19.05" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 0x7f869d134040&#45;&gt;0x7f869d190c40 -->
+<g id="edge7" class="edge">
+<title>0x7f869d134040&#45;&gt;0x7f869d190c40</title>
+<path fill="none" stroke="black" d="M160.29,-83.17C155.46,-73.12 149.07,-59.82 143.56,-48.35"/>
+<polygon fill="black" stroke="black" points="146.68,-46.76 139.2,-39.26 140.37,-49.79 146.68,-46.76"/>
+</g>
+<!-- 0x7f869d134040invis_m -->
+<!-- 0x7f869d134040&#45;&gt;0x7f869d134040invis_m -->
+<!-- 0x7f869d134040invis_r -->
+<!-- 0x7f869d134040&#45;&gt;0x7f869d134040invis_r -->
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">submitter</span> <span class="kn">import</span> <span class="n">submit</span>
+<span class="n">submit</span><span class="p">(</span><span class="mi">109</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<p>😃 Result: Accepted</p>
+<p>📥 Input: ``</p>
+<p>📤 Output: ``</p>
+<p>✅ Expected: ``</p>
+<p>💯 Passed Test Case: 32 / 32</p>
+<p>🚀 Runtime: 128 ms, Memory: 20.6 MB</p>
+<p>🉑 Runtime Percentile: better than 75.06%, Memory Percentile: better than 19.52%</p>
+<p>📆 Finished At: 2021-08-05</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+</html>

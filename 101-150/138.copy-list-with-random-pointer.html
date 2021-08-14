@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>138.copy-list-with-random-pointer</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/style.min.css" />
+<link rel="stylesheet" href="../static/highlight.min.css" />
+<link rel="stylesheet" href="../static/temporary.min.css" />
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="../static/custom.css">
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="138.-Copy-List-with-Random-Pointer">138. Copy List with Random Pointer<a class="anchor-link" href="#138.-Copy-List-with-Random-Pointer">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>A linked list of length <code>n</code> is given such that each node contains an additional random pointer, which could point to any node in the list, or <code>null</code>.</p><p>Construct a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" target="_blank"><strong>deep copy</strong></a> of the list. The deep copy should consist of exactly <code>n</code> <strong>brand new</strong> nodes, where each new node has its value set to the value of its corresponding original node. Both the <code>next</code> and <code>random</code> pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. <strong>None of the pointers in the new list should point to nodes in the original list</strong>.</p><p>For example, if there are two nodes <code>X</code> and <code>Y</code> in the original list, where <code>X.random --&gt; Y</code>, then for the corresponding two nodes <code>x</code> and <code>y</code> in the copied list, <code>x.random --&gt; y</code>.</p><p>Return <em>the head of the copied linked list</em>.</p><p>The linked list is represented in the input/output as a list of <code>n</code> nodes. Each node is represented as a pair of <code>[val, random_index]</code> where:</p><ul>
+    <li><code>val</code>: an integer representing <code>Node.val</code></li>
+    <li><code>random_index</code>: the index of the node (range from <code>0</code> to <code>n-1</code>) that the <code>random</code> pointer points to, or <code>null</code> if it does not point to any node.</li>
+</ul><p>Your code will <strong>only</strong> be given the <code>head</code> of the original linked list.</p><p>&nbsp;</p>
+<p><strong>Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2019/12/18/e1.png" style="width: 700px; height: 142px;" />
+<pre>
+<strong>Input:</strong> head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+<strong>Output:</strong> [[7,null],[13,0],[11,4],[10,2],[1,0]]
+</pre>
+
+<p><strong>Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2019/12/18/e2.png" style="width: 700px; height: 114px;" />
+<pre>
+<strong>Input:</strong> head = [[1,1],[2,1]]
+<strong>Output:</strong> [[1,1],[2,1]]
+</pre>
+
+<p><strong>Example 3:</strong></p><p><strong><img alt="" src="https://assets.leetcode.com/uploads/2019/12/18/e3.png" style="width: 700px; height: 122px;" /></strong></p><pre>
+<strong>Input:</strong> head = [[3,null],[3,0],[3,null]]
+<strong>Output:</strong> [[3,null],[3,0],[3,null]]
+</pre><p><strong>Example 4:</strong></p><pre>
+<strong>Input:</strong> head = []
+<strong>Output:</strong> []
+<strong>Explanation:</strong> The given linked list is empty (null pointer), so return null.
+</pre><p>&nbsp;</p>
+<p><strong>Constraints:</strong></p><ul>
+    <li><code>0 &lt;= n &lt;= 1000</code></li>
+    <li><code>-10000 &lt;= Node.val &lt;= 10000</code></li>
+    <li><code>Node.random</code> is <code>null</code> or is pointing to some node in the linked list.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Difficulty:-Medium,-AC-rate:-43.1%">Difficulty: Medium, AC rate: 43.1%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-43.1%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
+<li>Hash Table</li>
+<li>Linked List</li>
+</ul>
+<h4 id="Links:">Links:<a class="anchor-link" href="#Links:">&#182;</a></h4><p>🎁 <a href="https://leetcode.com/problems/copy-list-with-random-pointer/description/">Question Detail</a> | 🎉 <a href="https://leetcode.com/problems/copy-list-with-random-pointer/solution/">Question Solution</a> | 💬 <a href="https://leetcode.com/problems/copy-list-with-random-pointer/discuss/?orderBy=most_votes">Question Discussion</a></p>
+<h4 id="Hints:">Hints:<a class="anchor-link" href="#Hints:">&#182;</a></h4><details><summary>Hint 0  🔍</summary>Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node.</details>
+<details><summary>Hint 1  🔍</summary>You may want to use extra space to keep <b>old node ---> new node</b> mapping to prevent creating multiples copies of same node.</details>
+<details><summary>Hint 2  🔍</summary>We can avoid using extra space for old node ---> new node mapping, by tweaking the original linked list. Simply interweave the nodes of the old and copied list. 
+For e.g.
+<pre>
+Old List: A --> B --> C --> D
+InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
+</pre></details>
+<details><summary>Hint 3  🔍</summary>The interweaving is done using <b>next</b> pointers and we can make use of interweaved structure to get the correct reference nodes for <b>random</b> pointers.</details>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[[7,null],[13,0],[11,4],[10,2],[1,0]]</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p>What's your idea?</p>
+<p>第一次遍历，用 O(n) 的空间构建新旧对象间的地址映射表</p>
+<p>第二次遍历，利用地址映射表，替换新对象的 <code>random</code></p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a Node.</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">random</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">random</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">copyRandomList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Node&#39;</span><span class="p">:</span>
+        <span class="n">dummy</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">dummy</span>
+        
+        <span class="n">addr_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">while</span> <span class="n">head</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">,</span> <span class="n">head</span><span class="o">.</span><span class="n">random</span><span class="p">)</span>
+            <span class="n">addr_map</span><span class="p">[</span><span class="n">head</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">next</span>
+            
+            <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">next</span>
+            
+        <span class="n">p</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">while</span> <span class="n">p</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">random</span><span class="p">:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">addr_map</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">random</span><span class="p">]</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">next</span>
+        
+        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+
+<span class="n">n4</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">n3</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">n4</span><span class="p">)</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">n3</span><span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span>
+<span class="n">n0</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">n1</span><span class="p">)</span>
+<span class="n">n0</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">n1</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n0</span>
+<span class="n">n2</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n4</span>
+<span class="n">n3</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n2</span>
+<span class="n">n4</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n0</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copyRandomList</span><span class="p">(</span><span class="n">n0</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">l</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">l</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">random</span> <span class="k">else</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[7, None]
+[13, 7]
+[11, 1]
+[10, 11]
+[1, 7]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">n0</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n1</span><span class="p">)</span>
+<span class="n">n0</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n1</span>
+<span class="n">n1</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n1</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copyRandomList</span><span class="p">(</span><span class="n">n0</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">l</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">l</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">random</span> <span class="k">else</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1, 2]
+[2, 2]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span>
+<span class="n">n0</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n1</span><span class="p">)</span>
+<span class="n">n0</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">n1</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="n">n0</span>
+<span class="n">n2</span><span class="o">.</span><span class="n">random</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copyRandomList</span><span class="p">(</span><span class="n">n0</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">l</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">l</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">random</span> <span class="k">else</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[3, None]
+[3, 3]
+[3, None]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">copyRandomList</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">submitter</span> <span class="kn">import</span> <span class="n">submit</span>
+<span class="n">submit</span><span class="p">(</span><span class="mi">138</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<p>😃 Result: Accepted</p>
+<p>📥 Input: ``</p>
+<p>📤 Output: ``</p>
+<p>✅ Expected: ``</p>
+<p>💯 Passed Test Case: 19 / 19</p>
+<p>🚀 Runtime: 33 ms, Memory: 14.8 MB</p>
+<p>🉑 Runtime Percentile: better than 69.50%, Memory Percentile: better than 84.27%</p>
+<p>📆 Finished At: 2021-07-31</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+</html>
