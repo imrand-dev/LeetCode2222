@@ -20,6 +20,8 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   div.cell {
     display: block;
@@ -62,15 +64,13 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="24.-Swap-Nodes-in-Pairs">24. Swap Nodes in Pairs<a class="anchor-link" href="#24.-Swap-Nodes-in-Pairs">&#182;</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>Given a&nbsp;linked list, swap every two adjacent nodes and return its head. You must solve the problem without&nbsp;modifying the values in the list&#39;s nodes (i.e., only nodes themselves may be changed.)</p><p>&nbsp;</p>
 <p><strong>Example 1:</strong></p>
@@ -94,8 +94,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Difficulty:-Medium,-AC-rate:-54.8%">Difficulty: Medium, AC rate: 54.8%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-54.8%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
 <li>Linked List</li>
@@ -106,16 +105,14 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[1,2,3,4]</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 <p>What's your idea?</p>
@@ -127,7 +124,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for singly-linked list.</span>
@@ -157,7 +154,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
@@ -179,11 +176,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>2
@@ -200,7 +193,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">swapPairs</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
@@ -213,11 +206,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>None
@@ -231,7 +220,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -248,11 +237,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1
@@ -266,7 +251,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
@@ -281,11 +266,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 <div class="output_markdown rendered_html output_subarea ">

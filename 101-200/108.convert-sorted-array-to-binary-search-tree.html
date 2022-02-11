@@ -20,6 +20,8 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   div.cell {
     display: block;
@@ -62,15 +64,13 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="108.-Convert-Sorted-Array-to-Binary-Search-Tree">108. Convert Sorted Array to Binary Search Tree<a class="anchor-link" href="#108.-Convert-Sorted-Array-to-Binary-Search-Tree">&#182;</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>Given an integer array <code>nums</code> where the elements are sorted in <strong>ascending order</strong>, convert <em>it to a <strong>height-balanced</strong> binary search tree</em>.</p><p>A <strong>height-balanced</strong> binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.</p><p>&nbsp;</p>
 <p><strong>Example 1:</strong></p>
@@ -99,8 +99,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Difficulty:-Easy,-AC-rate:-63.1%">Difficulty: Easy, AC rate: 63.1%<a class="anchor-link" href="#Difficulty:-Easy,-AC-rate:-63.1%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
 <li>Array</li>
@@ -114,16 +113,14 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[-10,-3,0,5,9]</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 <p>What's your idea?</p>
@@ -136,7 +133,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
@@ -165,7 +162,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
@@ -183,11 +180,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 <div class="output_svg output_subarea ">
@@ -278,7 +271,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">sortedArrayToBST</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
@@ -292,11 +285,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 <div class="output_svg output_subarea ">
@@ -345,7 +334,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
@@ -360,11 +349,7 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 <div class="output_markdown rendered_html output_subarea ">

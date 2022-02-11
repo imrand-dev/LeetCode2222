@@ -20,6 +20,8 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   div.cell {
     display: block;
@@ -62,15 +64,13 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="138.-Copy-List-with-Random-Pointer">138. Copy List with Random Pointer<a class="anchor-link" href="#138.-Copy-List-with-Random-Pointer">&#182;</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>A linked list of length <code>n</code> is given such that each node contains an additional random pointer, which could point to any node in the list, or <code>null</code>.</p><p>Construct a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" target="_blank"><strong>deep copy</strong></a> of the list. The deep copy should consist of exactly <code>n</code> <strong>brand new</strong> nodes, where each new node has its value set to the value of its corresponding original node. Both the <code>next</code> and <code>random</code> pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. <strong>None of the pointers in the new list should point to nodes in the original list</strong>.</p><p>For example, if there are two nodes <code>X</code> and <code>Y</code> in the original list, where <code>X.random --&gt; Y</code>, then for the corresponding two nodes <code>x</code> and <code>y</code> in the copied list, <code>x.random --&gt; y</code>.</p><p>Return <em>the head of the copied linked list</em>.</p><p>The linked list is represented in the input/output as a list of <code>n</code> nodes. Each node is represented as a pair of <code>[val, random_index]</code> where:</p><ul>
     <li><code>val</code>: an integer representing <code>Node.val</code></li>
@@ -106,8 +106,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Difficulty:-Medium,-AC-rate:-43.1%">Difficulty: Medium, AC rate: 43.1%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-43.1%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
 <li>Hash Table</li>
@@ -126,16 +125,14 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[[7,null],[13,0],[11,4],[10,2],[1,0]]</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 <p>What's your idea?</p>
@@ -148,7 +145,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a Node.</span>
@@ -187,7 +184,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
@@ -216,11 +213,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[7, None]
@@ -238,7 +231,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -259,11 +252,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[1, 2]
@@ -278,7 +267,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -301,11 +290,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[3, None]
@@ -321,7 +306,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">copyRandomList</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
@@ -334,11 +319,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>None
@@ -352,7 +333,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
@@ -367,11 +348,7 @@ InterWeaved List: A --> A' --> B --> B' --> C --> C' --> D --> D'
 <div class="output_wrapper">
 <div class="output">
 
-
 <div class="output_area">
-
-    <div class="prompt"></div>
-
 
 
 <div class="output_markdown rendered_html output_subarea ">
