@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>701.insert-into-a-binary-search-tree</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/style.min.css" />
+<link rel="stylesheet" href="../static/highlight.min.css" />
+<link rel="stylesheet" href="../static/temporary.min.css" />
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="../static/custom.css">
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="701.-Insert-into-a-Binary-Search-Tree">701. Insert into a Binary Search Tree<a class="anchor-link" href="#701.-Insert-into-a-Binary-Search-Tree">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>You are given the <code>root</code> node of a binary search tree (BST) and a <code>value</code> to insert into the tree. Return <em>the root node of the BST after the insertion</em>. It is <strong>guaranteed</strong> that the new value does not exist in the original BST.</p><p><strong>Notice</strong>&nbsp;that there may exist&nbsp;multiple valid ways for the&nbsp;insertion, as long as the tree remains a BST after insertion. You can return <strong>any of them</strong>.</p><p>&nbsp;</p>
+<p><strong>Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/05/insertbst.jpg" style="width: 752px; height: 221px;" />
+<pre>
+<strong>Input:</strong> root = [4,2,7,1,3], val = 5
+<strong>Output:</strong> [4,2,7,1,3,5]
+<strong>Explanation:</strong> Another accepted tree is:
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/05/bst.jpg" style="width: 352px; height: 301px;" />
+</pre>
+
+<p><strong>Example 2:</strong></p><pre>
+<strong>Input:</strong> root = [40,20,60,10,30,50,70], val = 25
+<strong>Output:</strong> [40,20,60,10,30,50,70,null,null,25]
+</pre><p><strong>Example 3:</strong></p><pre>
+<strong>Input:</strong> root = [4,2,7,1,3,null,null,null,null,null,null], val = 5
+<strong>Output:</strong> [4,2,7,1,3,5]
+</pre><p>&nbsp;</p>
+<p><strong>Constraints:</strong></p><ul>
+    <li>The number of nodes in&nbsp;the tree will be in the range <code>[0,&nbsp;10<sup>4</sup>]</code>.</li>
+    <li><code>-10<sup>8</sup> &lt;= Node.val &lt;= 10<sup>8</sup></code></li>
+    <li>All the values <code>Node.val</code> are <strong>unique</strong>.</li>
+    <li><code>-10<sup>8</sup> &lt;= val &lt;= 10<sup>8</sup></code></li>
+    <li>It&#39;s <strong>guaranteed</strong> that <code>val</code> does not exist in the original BST.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Difficulty:-Medium,-AC-rate:-75.0%">Difficulty: Medium, AC rate: 75.0%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-75.0%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
+<li>Tree</li>
+<li>Binary Search Tree</li>
+<li>Binary Tree</li>
+</ul>
+<h4 id="Links:">Links:<a class="anchor-link" href="#Links:">&#182;</a></h4><p>🎁 <a href="https://leetcode.com/problems/insert-into-a-binary-search-tree/description/">Question Detail</a> | 🎉 <a href="https://leetcode.com/problems/insert-into-a-binary-search-tree/solution/">Question Solution</a> | 💬 <a href="https://leetcode.com/problems/insert-into-a-binary-search-tree/discuss/?orderBy=most_votes">Question Discussion</a></p>
+<h4 id="Hints:">Hints:<a class="anchor-link" href="#Hints:">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[4,2,7,1,3]
+5</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p>What's your idea?</p>
+<p>简单的二叉搜索树的构造</p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="c1"># Definition for a binary tree node.</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">insertIntoBST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">],</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">val</span><span class="p">:</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">insertIntoBST</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">insertIntoBST</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">helper</span> <span class="kn">import</span> <span class="n">array_to_tree</span>
+<span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">visualize_binary_tree</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">array_to_tree</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">insertIntoBST</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">array_to_tree</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">70</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">insertIntoBST</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">array_to_tree</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">insertIntoBST</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="164pt" height="188pt"
+ viewBox="0.00 0.00 164.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 160,-184 160,4 -4,4"/>
+<!-- 0x7f9b9214f640 -->
+<g id="node1" class="node">
+<title>0x7f9b9214f640</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-158.3" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 0x7f9b9214fd60 -->
+<g id="node2" class="node">
+<title>0x7f9b9214fd60</title>
+<ellipse fill="none" stroke="black" cx="58" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="58" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7f9b9214f640&#45;&gt;0x7f9b9214fd60 -->
+<g id="edge1" class="edge">
+<title>0x7f9b9214f640&#45;&gt;0x7f9b9214fd60</title>
+<path fill="none" stroke="black" d="M89.32,-145.81C84.18,-136.82 77.56,-125.23 71.73,-115.03"/>
+<polygon fill="black" stroke="black" points="74.66,-113.11 66.66,-106.16 68.59,-116.58 74.66,-113.11"/>
+</g>
+<!-- 0x7f9b9214f640invis_m -->
+<!-- 0x7f9b9214f640&#45;&gt;0x7f9b9214f640invis_m -->
+<!-- 0x7f9b9214fc10 -->
+<g id="node7" class="node">
+<title>0x7f9b9214fc10</title>
+<ellipse fill="none" stroke="black" cx="138" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="138" y="-86.3" font-family="Times,serif" font-size="14.00">7</text>
+</g>
+<!-- 0x7f9b9214f640&#45;&gt;0x7f9b9214fc10 -->
+<g id="edge6" class="edge">
+<title>0x7f9b9214f640&#45;&gt;0x7f9b9214fc10</title>
+<path fill="none" stroke="black" d="M106.68,-145.81C111.82,-136.82 118.44,-125.23 124.27,-115.03"/>
+<polygon fill="black" stroke="black" points="127.41,-116.58 129.34,-106.16 121.34,-113.11 127.41,-116.58"/>
+</g>
+<!-- 0x7f9b9214fee0 -->
+<g id="node3" class="node">
+<title>0x7f9b9214fee0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7f9b9214fd60&#45;&gt;0x7f9b9214fee0 -->
+<g id="edge2" class="edge">
+<title>0x7f9b9214fd60&#45;&gt;0x7f9b9214fee0</title>
+<path fill="none" stroke="black" d="M49.32,-73.81C44.18,-64.82 37.56,-53.23 31.73,-43.03"/>
+<polygon fill="black" stroke="black" points="34.66,-41.11 26.66,-34.16 28.59,-44.58 34.66,-41.11"/>
+</g>
+<!-- 0x7f9b9214fd60invis_m -->
+<!-- 0x7f9b9214fd60&#45;&gt;0x7f9b9214fd60invis_m -->
+<!-- 0x7f9b9214fa60 -->
+<g id="node5" class="node">
+<title>0x7f9b9214fa60</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7f9b9214fd60&#45;&gt;0x7f9b9214fa60 -->
+<g id="edge4" class="edge">
+<title>0x7f9b9214fd60&#45;&gt;0x7f9b9214fa60</title>
+<path fill="none" stroke="black" d="M66.68,-73.81C71.82,-64.82 78.44,-53.23 84.27,-43.03"/>
+<polygon fill="black" stroke="black" points="87.41,-44.58 89.34,-34.16 81.34,-41.11 87.41,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="229pt" height="188pt"
+ viewBox="0.00 0.00 228.50 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 224.5,-184 224.5,4 -4,4"/>
+<!-- 0x7f9b9214f640 -->
+<g id="node1" class="node">
+<title>0x7f9b9214f640</title>
+<ellipse fill="none" stroke="black" cx="127" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="127" y="-158.3" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 0x7f9b9214fd60 -->
+<g id="node2" class="node">
+<title>0x7f9b9214fd60</title>
+<ellipse fill="none" stroke="black" cx="80" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="80" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7f9b9214f640&#45;&gt;0x7f9b9214fd60 -->
+<g id="edge1" class="edge">
+<title>0x7f9b9214f640&#45;&gt;0x7f9b9214fd60</title>
+<path fill="none" stroke="black" d="M117.26,-146.5C110.96,-137.11 102.62,-124.69 95.43,-113.98"/>
+<polygon fill="black" stroke="black" points="98.21,-111.84 89.73,-105.49 92.39,-115.74 98.21,-111.84"/>
+</g>
+<!-- 0x7f9b9214f640invis_m -->
+<!-- 0x7f9b9214f640&#45;&gt;0x7f9b9214f640invis_m -->
+<!-- 0x7f9b9214fc10 -->
+<g id="node7" class="node">
+<title>0x7f9b9214fc10</title>
+<ellipse fill="none" stroke="black" cx="170" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="170" y="-86.3" font-family="Times,serif" font-size="14.00">7</text>
+</g>
+<!-- 0x7f9b9214f640&#45;&gt;0x7f9b9214fc10 -->
+<g id="edge6" class="edge">
+<title>0x7f9b9214f640&#45;&gt;0x7f9b9214fc10</title>
+<path fill="none" stroke="black" d="M136.12,-146.15C141.76,-136.97 149.13,-124.97 155.56,-114.51"/>
+<polygon fill="black" stroke="black" points="158.64,-116.18 160.89,-105.82 152.68,-112.51 158.64,-116.18"/>
+</g>
+<!-- 0x7f9b9214fee0 -->
+<g id="node3" class="node">
+<title>0x7f9b9214fee0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7f9b9214fd60&#45;&gt;0x7f9b9214fee0 -->
+<g id="edge2" class="edge">
+<title>0x7f9b9214fd60&#45;&gt;0x7f9b9214fee0</title>
+<path fill="none" stroke="black" d="M68.34,-75.83C59.33,-65.67 46.7,-51.4 36.34,-39.71"/>
+<polygon fill="black" stroke="black" points="38.86,-37.27 29.61,-32.11 33.62,-41.91 38.86,-37.27"/>
+</g>
+<!-- 0x7f9b9214fd60invis_m -->
+<!-- 0x7f9b9214fd60&#45;&gt;0x7f9b9214fd60invis_m -->
+<!-- 0x7f9b9214fa60 -->
+<g id="node5" class="node">
+<title>0x7f9b9214fa60</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7f9b9214fd60&#45;&gt;0x7f9b9214fa60 -->
+<g id="edge4" class="edge">
+<title>0x7f9b9214fd60&#45;&gt;0x7f9b9214fa60</title>
+<path fill="none" stroke="black" d="M84.27,-72.41C86.32,-64.42 88.83,-54.64 91.15,-45.64"/>
+<polygon fill="black" stroke="black" points="94.54,-46.51 93.64,-35.96 87.76,-44.77 94.54,-46.51"/>
+</g>
+<!-- 0x7f9b9214f5b0 -->
+<g id="node8" class="node">
+<title>0x7f9b9214f5b0</title>
+<ellipse fill="none" stroke="black" cx="152" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="152" y="-14.3" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 0x7f9b9214fc10&#45;&gt;0x7f9b9214f5b0 -->
+<g id="edge7" class="edge">
+<title>0x7f9b9214fc10&#45;&gt;0x7f9b9214f5b0</title>
+<path fill="none" stroke="black" d="M165.73,-72.41C163.68,-64.42 161.17,-54.64 158.85,-45.64"/>
+<polygon fill="black" stroke="black" points="162.24,-44.77 156.36,-35.96 155.46,-46.51 162.24,-44.77"/>
+</g>
+<!-- 0x7f9b9214fc10invis_m -->
+<!-- 0x7f9b9214fc10&#45;&gt;0x7f9b9214fc10invis_m -->
+<!-- 0x7f9b9214fc10invis_r -->
+<!-- 0x7f9b9214fc10&#45;&gt;0x7f9b9214fc10invis_r -->
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="268pt" height="197pt"
+ viewBox="0.00 0.00 268.00 196.99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 192.99)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-192.99 264,-192.99 264,4 -4,4"/>
+<!-- 0x7f9b9214fe50 -->
+<g id="node1" class="node">
+<title>0x7f9b9214fe50</title>
+<ellipse fill="none" stroke="black" cx="131.5" cy="-169.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="131.5" y="-165.79" font-family="Times,serif" font-size="14.00">40</text>
+</g>
+<!-- 0x7f9b9214fe80 -->
+<g id="node2" class="node">
+<title>0x7f9b9214fe80</title>
+<ellipse fill="none" stroke="black" cx="82.5" cy="-94.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="82.5" y="-90.79" font-family="Times,serif" font-size="14.00">20</text>
+</g>
+<!-- 0x7f9b9214fe50&#45;&gt;0x7f9b9214fe80 -->
+<g id="edge1" class="edge">
+<title>0x7f9b9214fe50&#45;&gt;0x7f9b9214fe80</title>
+<path fill="none" stroke="black" d="M120.87,-152.65C114.4,-143.02 106.01,-130.53 98.73,-119.68"/>
+<polygon fill="black" stroke="black" points="101.42,-117.4 92.94,-111.05 95.61,-121.31 101.42,-117.4"/>
+</g>
+<!-- 0x7f9b9214fe50invis_m -->
+<!-- 0x7f9b9214fe50&#45;&gt;0x7f9b9214fe50invis_m -->
+<!-- 0x7f9b9214f940 -->
+<g id="node7" class="node">
+<title>0x7f9b9214f940</title>
+<ellipse fill="none" stroke="black" cx="176.5" cy="-94.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="176.5" y="-90.79" font-family="Times,serif" font-size="14.00">60</text>
+</g>
+<!-- 0x7f9b9214fe50&#45;&gt;0x7f9b9214f940 -->
+<g id="edge6" class="edge">
+<title>0x7f9b9214fe50&#45;&gt;0x7f9b9214f940</title>
+<path fill="none" stroke="black" d="M141.49,-152.29C147.25,-142.93 154.63,-130.97 161.12,-120.44"/>
+<polygon fill="black" stroke="black" points="164.27,-122 166.54,-111.65 158.31,-118.33 164.27,-122"/>
+</g>
+<!-- 0x7f9b9214ff10 -->
+<g id="node3" class="node">
+<title>0x7f9b9214ff10</title>
+<ellipse fill="none" stroke="black" cx="19.5" cy="-19.5" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="19.5" y="-15.8" font-family="Times,serif" font-size="14.00">10</text>
+</g>
+<!-- 0x7f9b9214fe80&#45;&gt;0x7f9b9214ff10 -->
+<g id="edge2" class="edge">
+<title>0x7f9b9214fe80&#45;&gt;0x7f9b9214ff10</title>
+<path fill="none" stroke="black" d="M70.05,-79.07C61.08,-68.68 48.8,-54.45 38.59,-42.62"/>
+<polygon fill="black" stroke="black" points="41.1,-40.17 31.92,-34.89 35.8,-44.75 41.1,-40.17"/>
+</g>
+<!-- 0x7f9b9214fe80invis_m -->
+<!-- 0x7f9b9214fe80&#45;&gt;0x7f9b9214fe80invis_m -->
+<!-- 0x7f9b920a5430 -->
+<g id="node5" class="node">
+<title>0x7f9b920a5430</title>
+<ellipse fill="none" stroke="black" cx="101.5" cy="-19.5" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="101.5" y="-15.8" font-family="Times,serif" font-size="14.00">30</text>
+</g>
+<!-- 0x7f9b9214fe80&#45;&gt;0x7f9b920a5430 -->
+<g id="edge4" class="edge">
+<title>0x7f9b9214fe80&#45;&gt;0x7f9b920a5430</title>
+<path fill="none" stroke="black" d="M87.19,-75.45C89.32,-67.29 91.88,-57.46 94.24,-48.39"/>
+<polygon fill="black" stroke="black" points="97.66,-49.15 96.79,-38.59 90.88,-47.38 97.66,-49.15"/>
+</g>
+<!-- 0x7f9b920a5070 -->
+<g id="node8" class="node">
+<title>0x7f9b920a5070</title>
+<ellipse fill="none" stroke="black" cx="158.5" cy="-19.5" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="158.5" y="-15.8" font-family="Times,serif" font-size="14.00">50</text>
+</g>
+<!-- 0x7f9b9214f940&#45;&gt;0x7f9b920a5070 -->
+<g id="edge7" class="edge">
+<title>0x7f9b9214f940&#45;&gt;0x7f9b920a5070</title>
+<path fill="none" stroke="black" d="M172.05,-75.45C170.04,-67.29 167.61,-57.46 165.37,-48.39"/>
+<polygon fill="black" stroke="black" points="168.75,-47.46 162.96,-38.59 161.95,-49.13 168.75,-47.46"/>
+</g>
+<!-- 0x7f9b9214f940invis_m -->
+<!-- 0x7f9b9214f940&#45;&gt;0x7f9b9214f940invis_m -->
+<!-- 0x7f9b920a5730 -->
+<g id="node10" class="node">
+<title>0x7f9b920a5730</title>
+<ellipse fill="none" stroke="black" cx="240.5" cy="-19.5" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="240.5" y="-15.8" font-family="Times,serif" font-size="14.00">70</text>
+</g>
+<!-- 0x7f9b9214f940&#45;&gt;0x7f9b920a5730 -->
+<g id="edge9" class="edge">
+<title>0x7f9b9214f940&#45;&gt;0x7f9b920a5730</title>
+<path fill="none" stroke="black" d="M189.14,-79.07C198.26,-68.68 210.73,-54.45 221.1,-42.62"/>
+<polygon fill="black" stroke="black" points="223.92,-44.72 227.88,-34.89 218.66,-40.1 223.92,-44.72"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="268pt" height="272pt"
+ viewBox="0.00 0.00 268.00 271.99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 267.99)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-267.99 264,-267.99 264,4 -4,4"/>
+<!-- 0x7f9b9214fe50 -->
+<g id="node1" class="node">
+<title>0x7f9b9214fe50</title>
+<ellipse fill="none" stroke="black" cx="131.5" cy="-244.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="131.5" y="-240.79" font-family="Times,serif" font-size="14.00">40</text>
+</g>
+<!-- 0x7f9b9214fe80 -->
+<g id="node2" class="node">
+<title>0x7f9b9214fe80</title>
+<ellipse fill="none" stroke="black" cx="82.5" cy="-169.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="82.5" y="-165.79" font-family="Times,serif" font-size="14.00">20</text>
+</g>
+<!-- 0x7f9b9214fe50&#45;&gt;0x7f9b9214fe80 -->
+<g id="edge1" class="edge">
+<title>0x7f9b9214fe50&#45;&gt;0x7f9b9214fe80</title>
+<path fill="none" stroke="black" d="M120.87,-227.65C114.4,-218.02 106.01,-205.52 98.73,-194.68"/>
+<polygon fill="black" stroke="black" points="101.42,-192.4 92.94,-186.05 95.61,-196.3 101.42,-192.4"/>
+</g>
+<!-- 0x7f9b9214fe50invis_m -->
+<!-- 0x7f9b9214fe50&#45;&gt;0x7f9b9214fe50invis_m -->
+<!-- 0x7f9b9214f940 -->
+<g id="node10" class="node">
+<title>0x7f9b9214f940</title>
+<ellipse fill="none" stroke="black" cx="176.5" cy="-169.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="176.5" y="-165.79" font-family="Times,serif" font-size="14.00">60</text>
+</g>
+<!-- 0x7f9b9214fe50&#45;&gt;0x7f9b9214f940 -->
+<g id="edge9" class="edge">
+<title>0x7f9b9214fe50&#45;&gt;0x7f9b9214f940</title>
+<path fill="none" stroke="black" d="M141.49,-227.29C147.25,-217.93 154.63,-205.97 161.12,-195.43"/>
+<polygon fill="black" stroke="black" points="164.27,-197 166.54,-186.65 158.31,-193.32 164.27,-197"/>
+</g>
+<!-- 0x7f9b9214ff10 -->
+<g id="node3" class="node">
+<title>0x7f9b9214ff10</title>
+<ellipse fill="none" stroke="black" cx="19.5" cy="-94.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="19.5" y="-90.79" font-family="Times,serif" font-size="14.00">10</text>
+</g>
+<!-- 0x7f9b9214fe80&#45;&gt;0x7f9b9214ff10 -->
+<g id="edge2" class="edge">
+<title>0x7f9b9214fe80&#45;&gt;0x7f9b9214ff10</title>
+<path fill="none" stroke="black" d="M70.05,-154.07C61.08,-143.67 48.8,-129.44 38.59,-117.62"/>
+<polygon fill="black" stroke="black" points="41.1,-115.17 31.92,-109.89 35.8,-119.74 41.1,-115.17"/>
+</g>
+<!-- 0x7f9b9214fe80invis_m -->
+<!-- 0x7f9b9214fe80&#45;&gt;0x7f9b9214fe80invis_m -->
+<!-- 0x7f9b920a5430 -->
+<g id="node5" class="node">
+<title>0x7f9b920a5430</title>
+<ellipse fill="none" stroke="black" cx="101.5" cy="-94.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="101.5" y="-90.79" font-family="Times,serif" font-size="14.00">30</text>
+</g>
+<!-- 0x7f9b9214fe80&#45;&gt;0x7f9b920a5430 -->
+<g id="edge4" class="edge">
+<title>0x7f9b9214fe80&#45;&gt;0x7f9b920a5430</title>
+<path fill="none" stroke="black" d="M87.19,-150.45C89.32,-142.29 91.88,-132.46 94.24,-123.38"/>
+<polygon fill="black" stroke="black" points="97.66,-124.14 96.79,-113.58 90.88,-122.38 97.66,-124.14"/>
+</g>
+<!-- 0x7f9b9214f640 -->
+<g id="node6" class="node">
+<title>0x7f9b9214f640</title>
+<ellipse fill="none" stroke="black" cx="60.5" cy="-19.5" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="60.5" y="-15.8" font-family="Times,serif" font-size="14.00">25</text>
+</g>
+<!-- 0x7f9b920a5430&#45;&gt;0x7f9b9214f640 -->
+<g id="edge5" class="edge">
+<title>0x7f9b920a5430&#45;&gt;0x7f9b9214f640</title>
+<path fill="none" stroke="black" d="M92.19,-76.93C87.02,-67.72 80.48,-56.07 74.68,-45.74"/>
+<polygon fill="black" stroke="black" points="77.57,-43.75 69.62,-36.75 71.47,-47.18 77.57,-43.75"/>
+</g>
+<!-- 0x7f9b920a5430invis_m -->
+<!-- 0x7f9b920a5430&#45;&gt;0x7f9b920a5430invis_m -->
+<!-- 0x7f9b920a5430invis_r -->
+<!-- 0x7f9b920a5430&#45;&gt;0x7f9b920a5430invis_r -->
+<!-- 0x7f9b920a5070 -->
+<g id="node11" class="node">
+<title>0x7f9b920a5070</title>
+<ellipse fill="none" stroke="black" cx="158.5" cy="-94.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="158.5" y="-90.79" font-family="Times,serif" font-size="14.00">50</text>
+</g>
+<!-- 0x7f9b9214f940&#45;&gt;0x7f9b920a5070 -->
+<g id="edge10" class="edge">
+<title>0x7f9b9214f940&#45;&gt;0x7f9b920a5070</title>
+<path fill="none" stroke="black" d="M172.05,-150.45C170.04,-142.29 167.61,-132.46 165.37,-123.38"/>
+<polygon fill="black" stroke="black" points="168.75,-122.46 162.96,-113.58 161.95,-124.13 168.75,-122.46"/>
+</g>
+<!-- 0x7f9b9214f940invis_m -->
+<!-- 0x7f9b9214f940&#45;&gt;0x7f9b9214f940invis_m -->
+<!-- 0x7f9b920a5730 -->
+<g id="node13" class="node">
+<title>0x7f9b920a5730</title>
+<ellipse fill="none" stroke="black" cx="240.5" cy="-94.49" rx="19.5" ry="19.5"/>
+<text text-anchor="middle" x="240.5" y="-90.79" font-family="Times,serif" font-size="14.00">70</text>
+</g>
+<!-- 0x7f9b9214f940&#45;&gt;0x7f9b920a5730 -->
+<g id="edge12" class="edge">
+<title>0x7f9b9214f940&#45;&gt;0x7f9b920a5730</title>
+<path fill="none" stroke="black" d="M189.14,-154.07C198.26,-143.67 210.73,-129.44 221.1,-117.62"/>
+<polygon fill="black" stroke="black" points="223.92,-119.71 227.88,-109.89 218.66,-115.1 223.92,-119.71"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="164pt" height="188pt"
+ viewBox="0.00 0.00 164.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 160,-184 160,4 -4,4"/>
+<!-- 0x7f9b9214f580 -->
+<g id="node1" class="node">
+<title>0x7f9b9214f580</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-158.3" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 0x7f9b9214fee0 -->
+<g id="node2" class="node">
+<title>0x7f9b9214fee0</title>
+<ellipse fill="none" stroke="black" cx="58" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="58" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7f9b9214f580&#45;&gt;0x7f9b9214fee0 -->
+<g id="edge1" class="edge">
+<title>0x7f9b9214f580&#45;&gt;0x7f9b9214fee0</title>
+<path fill="none" stroke="black" d="M89.32,-145.81C84.18,-136.82 77.56,-125.23 71.73,-115.03"/>
+<polygon fill="black" stroke="black" points="74.66,-113.11 66.66,-106.16 68.59,-116.58 74.66,-113.11"/>
+</g>
+<!-- 0x7f9b9214f580invis_m -->
+<!-- 0x7f9b9214f580&#45;&gt;0x7f9b9214f580invis_m -->
+<!-- 0x7f9b9214fbe0 -->
+<g id="node7" class="node">
+<title>0x7f9b9214fbe0</title>
+<ellipse fill="none" stroke="black" cx="138" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="138" y="-86.3" font-family="Times,serif" font-size="14.00">7</text>
+</g>
+<!-- 0x7f9b9214f580&#45;&gt;0x7f9b9214fbe0 -->
+<g id="edge6" class="edge">
+<title>0x7f9b9214f580&#45;&gt;0x7f9b9214fbe0</title>
+<path fill="none" stroke="black" d="M106.68,-145.81C111.82,-136.82 118.44,-125.23 124.27,-115.03"/>
+<polygon fill="black" stroke="black" points="127.41,-116.58 129.34,-106.16 121.34,-113.11 127.41,-116.58"/>
+</g>
+<!-- 0x7f9b9218dfa0 -->
+<g id="node3" class="node">
+<title>0x7f9b9218dfa0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7f9b9214fee0&#45;&gt;0x7f9b9218dfa0 -->
+<g id="edge2" class="edge">
+<title>0x7f9b9214fee0&#45;&gt;0x7f9b9218dfa0</title>
+<path fill="none" stroke="black" d="M49.32,-73.81C44.18,-64.82 37.56,-53.23 31.73,-43.03"/>
+<polygon fill="black" stroke="black" points="34.66,-41.11 26.66,-34.16 28.59,-44.58 34.66,-41.11"/>
+</g>
+<!-- 0x7f9b9214fee0invis_m -->
+<!-- 0x7f9b9214fee0&#45;&gt;0x7f9b9214fee0invis_m -->
+<!-- 0x7f9b920a5a90 -->
+<g id="node5" class="node">
+<title>0x7f9b920a5a90</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7f9b9214fee0&#45;&gt;0x7f9b920a5a90 -->
+<g id="edge4" class="edge">
+<title>0x7f9b9214fee0&#45;&gt;0x7f9b920a5a90</title>
+<path fill="none" stroke="black" d="M66.68,-73.81C71.82,-64.82 78.44,-53.23 84.27,-43.03"/>
+<polygon fill="black" stroke="black" points="87.41,-44.58 89.34,-34.16 81.34,-41.11 87.41,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="229pt" height="188pt"
+ viewBox="0.00 0.00 228.50 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 224.5,-184 224.5,4 -4,4"/>
+<!-- 0x7f9b9214f580 -->
+<g id="node1" class="node">
+<title>0x7f9b9214f580</title>
+<ellipse fill="none" stroke="black" cx="127" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="127" y="-158.3" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 0x7f9b9214fee0 -->
+<g id="node2" class="node">
+<title>0x7f9b9214fee0</title>
+<ellipse fill="none" stroke="black" cx="80" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="80" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7f9b9214f580&#45;&gt;0x7f9b9214fee0 -->
+<g id="edge1" class="edge">
+<title>0x7f9b9214f580&#45;&gt;0x7f9b9214fee0</title>
+<path fill="none" stroke="black" d="M117.26,-146.5C110.96,-137.11 102.62,-124.69 95.43,-113.98"/>
+<polygon fill="black" stroke="black" points="98.21,-111.84 89.73,-105.49 92.39,-115.74 98.21,-111.84"/>
+</g>
+<!-- 0x7f9b9214f580invis_m -->
+<!-- 0x7f9b9214f580&#45;&gt;0x7f9b9214f580invis_m -->
+<!-- 0x7f9b9214fbe0 -->
+<g id="node7" class="node">
+<title>0x7f9b9214fbe0</title>
+<ellipse fill="none" stroke="black" cx="170" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="170" y="-86.3" font-family="Times,serif" font-size="14.00">7</text>
+</g>
+<!-- 0x7f9b9214f580&#45;&gt;0x7f9b9214fbe0 -->
+<g id="edge6" class="edge">
+<title>0x7f9b9214f580&#45;&gt;0x7f9b9214fbe0</title>
+<path fill="none" stroke="black" d="M136.12,-146.15C141.76,-136.97 149.13,-124.97 155.56,-114.51"/>
+<polygon fill="black" stroke="black" points="158.64,-116.18 160.89,-105.82 152.68,-112.51 158.64,-116.18"/>
+</g>
+<!-- 0x7f9b9218dfa0 -->
+<g id="node3" class="node">
+<title>0x7f9b9218dfa0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7f9b9214fee0&#45;&gt;0x7f9b9218dfa0 -->
+<g id="edge2" class="edge">
+<title>0x7f9b9214fee0&#45;&gt;0x7f9b9218dfa0</title>
+<path fill="none" stroke="black" d="M68.34,-75.83C59.33,-65.67 46.7,-51.4 36.34,-39.71"/>
+<polygon fill="black" stroke="black" points="38.86,-37.27 29.61,-32.11 33.62,-41.91 38.86,-37.27"/>
+</g>
+<!-- 0x7f9b9214fee0invis_m -->
+<!-- 0x7f9b9214fee0&#45;&gt;0x7f9b9214fee0invis_m -->
+<!-- 0x7f9b920a5a90 -->
+<g id="node5" class="node">
+<title>0x7f9b920a5a90</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7f9b9214fee0&#45;&gt;0x7f9b920a5a90 -->
+<g id="edge4" class="edge">
+<title>0x7f9b9214fee0&#45;&gt;0x7f9b920a5a90</title>
+<path fill="none" stroke="black" d="M84.27,-72.41C86.32,-64.42 88.83,-54.64 91.15,-45.64"/>
+<polygon fill="black" stroke="black" points="94.54,-46.51 93.64,-35.96 87.76,-44.77 94.54,-46.51"/>
+</g>
+<!-- 0x7f9b9214fe50 -->
+<g id="node8" class="node">
+<title>0x7f9b9214fe50</title>
+<ellipse fill="none" stroke="black" cx="152" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="152" y="-14.3" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 0x7f9b9214fbe0&#45;&gt;0x7f9b9214fe50 -->
+<g id="edge7" class="edge">
+<title>0x7f9b9214fbe0&#45;&gt;0x7f9b9214fe50</title>
+<path fill="none" stroke="black" d="M165.73,-72.41C163.68,-64.42 161.17,-54.64 158.85,-45.64"/>
+<polygon fill="black" stroke="black" points="162.24,-44.77 156.36,-35.96 155.46,-46.51 162.24,-44.77"/>
+</g>
+<!-- 0x7f9b9214fbe0invis_m -->
+<!-- 0x7f9b9214fbe0&#45;&gt;0x7f9b9214fbe0invis_m -->
+<!-- 0x7f9b9214fbe0invis_r -->
+<!-- 0x7f9b9214fbe0&#45;&gt;0x7f9b9214fbe0invis_r -->
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">submitter</span> <span class="kn">import</span> <span class="n">submit</span>
+<span class="n">submit</span><span class="p">(</span><span class="mi">701</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<p>😃 Result: Accepted</p>
+<p>📥 Input: ``</p>
+<p>📤 Output: ``</p>
+<p>✅ Expected: ``</p>
+<p>💯 Passed Test Case: 35 / 35</p>
+<p>🚀 Runtime: 304 ms, Memory: 17 MB</p>
+<p>🉑 Runtime Percentile: better than 5.08%, Memory Percentile: better than 8.56%</p>
+<p>📆 Finished At: 2022-02-16</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+</html>
