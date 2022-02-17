@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>95.unique-binary-search-trees-ii</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/style.min.css" />
+<link rel="stylesheet" href="../static/highlight.min.css" />
+<link rel="stylesheet" href="../static/temporary.min.css" />
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="../static/custom.css">
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="95.-Unique-Binary-Search-Trees-II">95. Unique Binary Search Trees II<a class="anchor-link" href="#95.-Unique-Binary-Search-Trees-II">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>Given an integer <code>n</code>, return <em>all the structurally unique <strong>BST&#39;</strong>s (binary search trees), which has exactly </em><code>n</code><em> nodes of unique values from</em> <code>1</code> <em>to</em> <code>n</code>. Return the answer in <strong>any order</strong>.</p><p>&nbsp;</p>
+<p><strong>Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg" style="width: 600px; height: 148px;" />
+<pre>
+<strong>Input:</strong> n = 3
+<strong>Output:</strong> [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+</pre>
+
+<p><strong>Example 2:</strong></p><pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> [[1]]
+</pre><p>&nbsp;</p>
+<p><strong>Constraints:</strong></p><ul>
+    <li><code>1 &lt;= n &lt;= 8</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Difficulty:-Medium,-AC-rate:-48.7%">Difficulty: Medium, AC rate: 48.7%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-48.7%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
+<li>Dynamic Programming</li>
+<li>Backtracking</li>
+<li>Tree</li>
+<li>Binary Search Tree</li>
+<li>Binary Tree</li>
+</ul>
+<h4 id="Links:">Links:<a class="anchor-link" href="#Links:">&#182;</a></h4><p>🎁 <a href="https://leetcode.com/problems/unique-binary-search-trees-ii/description/">Question Detail</a> | 🎉 <a href="https://leetcode.com/problems/unique-binary-search-trees-ii/solution/">Question Solution</a> | 💬 <a href="https://leetcode.com/problems/unique-binary-search-trees-ii/discuss/?orderBy=most_votes">Question Discussion</a></p>
+<h4 id="Hints:">Hints:<a class="anchor-link" href="#Hints:">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>3</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p>What's your idea?</p>
+<p>根节点占一个节点，左右子树分别分配节点数，组合构造出所有结构</p>
+<p>然后按中序遍历的方式从1开始填充 <code>val</code></p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="c1"># Definition for a binary tree node.</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">generateTrees</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">TreeNode</span><span class="p">]]:</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">trees</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recur</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">memory</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">:</span>
+            <span class="n">next_val</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_tree</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">next_val</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">r</span>
+    
+    <span class="k">def</span> <span class="nf">recur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">memory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">memory</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">memory</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">left_tree</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generateTrees</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">right_tree</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generateTrees</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="p">):</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TreeNode</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">copy_tree</span><span class="p">(</span><span class="n">left_tree</span><span class="p">),</span> <span class="n">right</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">copy_tree</span><span class="p">(</span><span class="n">right_tree</span><span class="p">)))</span>
+        <span class="n">memory</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="k">return</span> <span class="n">r</span>
+    
+    <span class="k">def</span> <span class="nf">copy_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">copy_tree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">),</span> <span class="n">right</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">copy_tree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">fill_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">next_val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_tree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">next_val</span><span class="p">)</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">next_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">next_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">next_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_tree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">next_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">visualize_binary_tree</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">generateTrees</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+  <span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="135pt" height="188pt"
+ viewBox="0.00 0.00 134.50 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 130.5,-184 130.5,4 -4,4"/>
+<!-- 0x7efdf0a37be0 -->
+<g id="node1" class="node">
+<title>0x7efdf0a37be0</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-158.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7efdf0a37be0invis_l -->
+<!-- 0x7efdf0a37be0&#45;&gt;0x7efdf0a37be0invis_l -->
+<!-- 0x7efdf0a37be0invis_m -->
+<!-- 0x7efdf0a37be0&#45;&gt;0x7efdf0a37be0invis_m -->
+<!-- 0x7efdf0a37dc0 -->
+<g id="node4" class="node">
+<title>0x7efdf0a37dc0</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7efdf0a37be0&#45;&gt;0x7efdf0a37dc0 -->
+<g id="edge3" class="edge">
+<title>0x7efdf0a37be0&#45;&gt;0x7efdf0a37dc0</title>
+<path fill="none" stroke="black" d="M37.18,-145.81C42.32,-136.82 48.94,-125.23 54.77,-115.03"/>
+<polygon fill="black" stroke="black" points="57.91,-116.58 59.84,-106.16 51.84,-113.11 57.91,-116.58"/>
+</g>
+<!-- 0x7efdf0a37dc0invis_l -->
+<!-- 0x7efdf0a37dc0&#45;&gt;0x7efdf0a37dc0invis_l -->
+<!-- 0x7efdf0a37dc0invis_m -->
+<!-- 0x7efdf0a37dc0&#45;&gt;0x7efdf0a37dc0invis_m -->
+<!-- 0x7efdf0a2a4f0 -->
+<g id="node7" class="node">
+<title>0x7efdf0a2a4f0</title>
+<ellipse fill="none" stroke="black" cx="108.5" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="108.5" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7efdf0a37dc0&#45;&gt;0x7efdf0a2a4f0 -->
+<g id="edge6" class="edge">
+<title>0x7efdf0a37dc0&#45;&gt;0x7efdf0a2a4f0</title>
+<path fill="none" stroke="black" d="M77.18,-73.81C82.32,-64.82 88.94,-53.23 94.77,-43.03"/>
+<polygon fill="black" stroke="black" points="97.91,-44.58 99.84,-34.16 91.84,-41.11 97.91,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="105pt" height="188pt"
+ viewBox="0.00 0.00 105.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 101,-184 101,4 -4,4"/>
+<!-- 0x7efdf0a37d60 -->
+<g id="node1" class="node">
+<title>0x7efdf0a37d60</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-158.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7efdf0a37d60invis_l -->
+<!-- 0x7efdf0a37d60&#45;&gt;0x7efdf0a37d60invis_l -->
+<!-- 0x7efdf0a37d60invis_m -->
+<!-- 0x7efdf0a37d60&#45;&gt;0x7efdf0a37d60invis_m -->
+<!-- 0x7efdf0a376d0 -->
+<g id="node4" class="node">
+<title>0x7efdf0a376d0</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-86.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7efdf0a37d60&#45;&gt;0x7efdf0a376d0 -->
+<g id="edge3" class="edge">
+<title>0x7efdf0a37d60&#45;&gt;0x7efdf0a376d0</title>
+<path fill="none" stroke="black" d="M37.18,-145.81C42.32,-136.82 48.94,-125.23 54.77,-115.03"/>
+<polygon fill="black" stroke="black" points="57.91,-116.58 59.84,-106.16 51.84,-113.11 57.91,-116.58"/>
+</g>
+<!-- 0x7efdf0a37e20 -->
+<g id="node5" class="node">
+<title>0x7efdf0a37e20</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-14.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7efdf0a376d0&#45;&gt;0x7efdf0a37e20 -->
+<g id="edge4" class="edge">
+<title>0x7efdf0a376d0&#45;&gt;0x7efdf0a37e20</title>
+<path fill="none" stroke="black" d="M59.82,-73.81C54.68,-64.82 48.06,-53.23 42.23,-43.03"/>
+<polygon fill="black" stroke="black" points="45.16,-41.11 37.16,-34.16 39.09,-44.58 45.16,-41.11"/>
+</g>
+<!-- 0x7efdf0a376d0invis_m -->
+<!-- 0x7efdf0a376d0&#45;&gt;0x7efdf0a376d0invis_m -->
+<!-- 0x7efdf0a376d0invis_r -->
+<!-- 0x7efdf0a376d0&#45;&gt;0x7efdf0a376d0invis_r -->
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="124pt" height="116pt"
+ viewBox="0.00 0.00 124.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 120,-112 120,4 -4,4"/>
+<!-- 0x7efdf0a37310 -->
+<g id="node1" class="node">
+<title>0x7efdf0a37310</title>
+<ellipse fill="none" stroke="black" cx="58" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="58" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7efdf0a2adf0 -->
+<g id="node2" class="node">
+<title>0x7efdf0a2adf0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7efdf0a37310&#45;&gt;0x7efdf0a2adf0 -->
+<g id="edge1" class="edge">
+<title>0x7efdf0a37310&#45;&gt;0x7efdf0a2adf0</title>
+<path fill="none" stroke="black" d="M49.32,-73.81C44.18,-64.82 37.56,-53.23 31.73,-43.03"/>
+<polygon fill="black" stroke="black" points="34.66,-41.11 26.66,-34.16 28.59,-44.58 34.66,-41.11"/>
+</g>
+<!-- 0x7efdf0a37310invis_m -->
+<!-- 0x7efdf0a37310&#45;&gt;0x7efdf0a37310invis_m -->
+<!-- 0x7efdf0a37f10 -->
+<g id="node4" class="node">
+<title>0x7efdf0a37f10</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7efdf0a37310&#45;&gt;0x7efdf0a37f10 -->
+<g id="edge3" class="edge">
+<title>0x7efdf0a37310&#45;&gt;0x7efdf0a37f10</title>
+<path fill="none" stroke="black" d="M66.68,-73.81C71.82,-64.82 78.44,-53.23 84.27,-43.03"/>
+<polygon fill="black" stroke="black" points="87.41,-44.58 89.34,-34.16 81.34,-41.11 87.41,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="105pt" height="188pt"
+ viewBox="0.00 0.00 105.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 101,-184 101,4 -4,4"/>
+<!-- 0x7efdf0a372b0 -->
+<g id="node1" class="node">
+<title>0x7efdf0a372b0</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-158.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7efdf0a37e50 -->
+<g id="node2" class="node">
+<title>0x7efdf0a37e50</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-86.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7efdf0a372b0&#45;&gt;0x7efdf0a37e50 -->
+<g id="edge1" class="edge">
+<title>0x7efdf0a372b0&#45;&gt;0x7efdf0a37e50</title>
+<path fill="none" stroke="black" d="M59.82,-145.81C54.68,-136.82 48.06,-125.23 42.23,-115.03"/>
+<polygon fill="black" stroke="black" points="45.16,-113.11 37.16,-106.16 39.09,-116.58 45.16,-113.11"/>
+</g>
+<!-- 0x7efdf0a372b0invis_m -->
+<!-- 0x7efdf0a372b0&#45;&gt;0x7efdf0a372b0invis_m -->
+<!-- 0x7efdf0a372b0invis_r -->
+<!-- 0x7efdf0a372b0&#45;&gt;0x7efdf0a372b0invis_r -->
+<!-- 0x7efdf0a37e50invis_l -->
+<!-- 0x7efdf0a37e50&#45;&gt;0x7efdf0a37e50invis_l -->
+<!-- 0x7efdf0a37e50invis_m -->
+<!-- 0x7efdf0a37e50&#45;&gt;0x7efdf0a37e50invis_m -->
+<!-- 0x7efdf0a37490 -->
+<g id="node5" class="node">
+<title>0x7efdf0a37490</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-14.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7efdf0a37e50&#45;&gt;0x7efdf0a37490 -->
+<g id="edge4" class="edge">
+<title>0x7efdf0a37e50&#45;&gt;0x7efdf0a37490</title>
+<path fill="none" stroke="black" d="M37.18,-73.81C42.32,-64.82 48.94,-53.23 54.77,-43.03"/>
+<polygon fill="black" stroke="black" points="57.91,-44.58 59.84,-34.16 51.84,-41.11 57.91,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="135pt" height="188pt"
+ viewBox="0.00 0.00 134.50 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 130.5,-184 130.5,4 -4,4"/>
+<!-- 0x7efdf0a37520 -->
+<g id="node1" class="node">
+<title>0x7efdf0a37520</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="98" y="-158.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7efdf0a37190 -->
+<g id="node2" class="node">
+<title>0x7efdf0a37190</title>
+<ellipse fill="none" stroke="black" cx="58" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="58" y="-86.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7efdf0a37520&#45;&gt;0x7efdf0a37190 -->
+<g id="edge1" class="edge">
+<title>0x7efdf0a37520&#45;&gt;0x7efdf0a37190</title>
+<path fill="none" stroke="black" d="M89.32,-145.81C84.18,-136.82 77.56,-125.23 71.73,-115.03"/>
+<polygon fill="black" stroke="black" points="74.66,-113.11 66.66,-106.16 68.59,-116.58 74.66,-113.11"/>
+</g>
+<!-- 0x7efdf0a37520invis_m -->
+<!-- 0x7efdf0a37520&#45;&gt;0x7efdf0a37520invis_m -->
+<!-- 0x7efdf0a37520invis_r -->
+<!-- 0x7efdf0a37520&#45;&gt;0x7efdf0a37520invis_r -->
+<!-- 0x7efdf0a37bb0 -->
+<g id="node3" class="node">
+<title>0x7efdf0a37bb0</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7efdf0a37190&#45;&gt;0x7efdf0a37bb0 -->
+<g id="edge2" class="edge">
+<title>0x7efdf0a37190&#45;&gt;0x7efdf0a37bb0</title>
+<path fill="none" stroke="black" d="M49.32,-73.81C44.18,-64.82 37.56,-53.23 31.73,-43.03"/>
+<polygon fill="black" stroke="black" points="34.66,-41.11 26.66,-34.16 28.59,-44.58 34.66,-41.11"/>
+</g>
+<!-- 0x7efdf0a37190invis_m -->
+<!-- 0x7efdf0a37190&#45;&gt;0x7efdf0a37190invis_m -->
+<!-- 0x7efdf0a37190invis_r -->
+<!-- 0x7efdf0a37190&#45;&gt;0x7efdf0a37190invis_r -->
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">submitter</span> <span class="kn">import</span> <span class="n">submit</span>
+<span class="n">submit</span><span class="p">(</span><span class="mi">95</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<p>😃 Result: Accepted</p>
+<p>📥 Input: ``</p>
+<p>📤 Output: ``</p>
+<p>✅ Expected: ``</p>
+<p>💯 Passed Test Case: 8 / 8</p>
+<p>🚀 Runtime: 211 ms, Memory: 16.9 MB</p>
+<p>🉑 Runtime Percentile: better than 5.12%, Memory Percentile: better than 8.49%</p>
+<p>📆 Finished At: 2022-02-17</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+</html>
