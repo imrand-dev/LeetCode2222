@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>897.increasing-order-search-tree</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/style.min.css" />
+<link rel="stylesheet" href="../static/highlight.min.css" />
+<link rel="stylesheet" href="../static/temporary.min.css" />
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="../static/custom.css">
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="897.-Increasing-Order-Search-Tree">897. Increasing Order Search Tree<a class="anchor-link" href="#897.-Increasing-Order-Search-Tree">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>Given the <code>root</code> of a binary search tree, rearrange the tree in <strong>in-order</strong> so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.</p><p>&nbsp;</p>
+<p><strong>Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/11/17/ex1.jpg" style="width: 600px; height: 350px;" />
+<pre>
+<strong>Input:</strong> root = [5,3,6,2,4,null,8,1,null,null,null,7,9]
+<strong>Output:</strong> [1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
+</pre>
+
+<p><strong>Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/11/17/ex2.jpg" style="width: 300px; height: 114px;" />
+<pre>
+<strong>Input:</strong> root = [5,1,7]
+<strong>Output:</strong> [1,null,5,null,7]
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p><ul>
+    <li>The number of nodes in the given tree will be in the range <code>[1, 100]</code>.</li>
+    <li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Difficulty:-Easy,-AC-rate:-76.0%">Difficulty: Easy, AC rate: 76.0%<a class="anchor-link" href="#Difficulty:-Easy,-AC-rate:-76.0%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
+<li>Stack</li>
+<li>Tree</li>
+<li>Depth-First Search</li>
+<li>Binary Search Tree</li>
+<li>Binary Tree</li>
+</ul>
+<h4 id="Links:">Links:<a class="anchor-link" href="#Links:">&#182;</a></h4><p>🎁 <a href="https://leetcode.com/problems/increasing-order-search-tree/description/">Question Detail</a> | 🎉 <a href="https://leetcode.com/problems/increasing-order-search-tree/solution/">Question Solution</a> | 💬 <a href="https://leetcode.com/problems/increasing-order-search-tree/discuss/?orderBy=most_votes">Question Discussion</a></p>
+<h4 id="Hints:">Hints:<a class="anchor-link" href="#Hints:">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[5,3,6,2,4,null,8,1,null,null,null,7,9]</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p>What's your idea?</p>
+<p>DFS</p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a binary tree node.</span>
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">increasingBST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+        <span class="n">root</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recur</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span>
+
+    <span class="k">def</span> <span class="nf">recur</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">left_list_head</span><span class="p">,</span> <span class="n">left_list_tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recur</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">right_list_head</span><span class="p">,</span> <span class="n">right_list_tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recur</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">left_list_tail</span><span class="p">:</span>
+            <span class="n">left_list_head</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left_list_tail</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right_list_head</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">right_list_tail</span><span class="p">:</span>
+            <span class="n">right_list_tail</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">return</span> <span class="n">left_list_head</span><span class="p">,</span> <span class="n">right_list_tail</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">helper</span> <span class="kn">import</span> <span class="n">array_to_tree</span>
+<span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">visualize_binary_tree</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">array_to_tree</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">increasingBST</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">array_to_tree</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">increasingBST</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">array_to_tree</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">increasingBST</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span>
+  <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span>
+      <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+  <span class="p">),</span>
+  <span class="n">TreeNode</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span>
+    <span class="kc">None</span><span class="p">,</span>
+    <span class="n">TreeNode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span>
+      <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span>
+      <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+    <span class="p">),</span>
+  <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">visualize_binary_tree</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">increasingBST</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="44pt" height="44pt"
+ viewBox="0.00 0.00 44.00 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 40,-40 40,4 -4,4"/>
+<!-- 0x7fa6bcfb6280 -->
+<g id="node1" class="node">
+<title>0x7fa6bcfb6280</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="95pt" height="116pt"
+ viewBox="0.00 0.00 94.50 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 90.5,-112 90.5,4 -4,4"/>
+<!-- 0x7fa6bcee2430 -->
+<g id="node1" class="node">
+<title>0x7fa6bcee2430</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-86.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7fa6bcee2430invis_l -->
+<!-- 0x7fa6bcee2430&#45;&gt;0x7fa6bcee2430invis_l -->
+<!-- 0x7fa6bcee2430invis_m -->
+<!-- 0x7fa6bcee2430&#45;&gt;0x7fa6bcee2430invis_m -->
+<!-- 0x7fa6bd03a340 -->
+<g id="node4" class="node">
+<title>0x7fa6bd03a340</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-14.3" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 0x7fa6bcee2430&#45;&gt;0x7fa6bd03a340 -->
+<g id="edge3" class="edge">
+<title>0x7fa6bcee2430&#45;&gt;0x7fa6bd03a340</title>
+<path fill="none" stroke="black" d="M37.18,-73.81C42.32,-64.82 48.94,-53.23 54.77,-43.03"/>
+<polygon fill="black" stroke="black" points="57.91,-44.58 59.84,-34.16 51.84,-41.11 57.91,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="135pt" height="188pt"
+ viewBox="0.00 0.00 134.50 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 130.5,-184 130.5,4 -4,4"/>
+<!-- 0x7fa6bcee2310 -->
+<g id="node1" class="node">
+<title>0x7fa6bcee2310</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-158.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7fa6bcee2310invis_l -->
+<!-- 0x7fa6bcee2310&#45;&gt;0x7fa6bcee2310invis_l -->
+<!-- 0x7fa6bcee2310invis_m -->
+<!-- 0x7fa6bcee2310&#45;&gt;0x7fa6bcee2310invis_m -->
+<!-- 0x7fa6bcee2670 -->
+<g id="node4" class="node">
+<title>0x7fa6bcee2670</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-86.3" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 0x7fa6bcee2310&#45;&gt;0x7fa6bcee2670 -->
+<g id="edge3" class="edge">
+<title>0x7fa6bcee2310&#45;&gt;0x7fa6bcee2670</title>
+<path fill="none" stroke="black" d="M37.18,-145.81C42.32,-136.82 48.94,-125.23 54.77,-115.03"/>
+<polygon fill="black" stroke="black" points="57.91,-116.58 59.84,-106.16 51.84,-113.11 57.91,-116.58"/>
+</g>
+<!-- 0x7fa6bcee2670invis_l -->
+<!-- 0x7fa6bcee2670&#45;&gt;0x7fa6bcee2670invis_l -->
+<!-- 0x7fa6bcee2670invis_m -->
+<!-- 0x7fa6bcee2670&#45;&gt;0x7fa6bcee2670invis_m -->
+<!-- 0x7fa6bcee2e20 -->
+<g id="node7" class="node">
+<title>0x7fa6bcee2e20</title>
+<ellipse fill="none" stroke="black" cx="108.5" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="108.5" y="-14.3" font-family="Times,serif" font-size="14.00">7</text>
+</g>
+<!-- 0x7fa6bcee2670&#45;&gt;0x7fa6bcee2e20 -->
+<g id="edge6" class="edge">
+<title>0x7fa6bcee2670&#45;&gt;0x7fa6bcee2e20</title>
+<path fill="none" stroke="black" d="M77.18,-73.81C82.32,-64.82 88.94,-53.23 94.77,-43.03"/>
+<polygon fill="black" stroke="black" points="97.91,-44.58 99.84,-34.16 91.84,-41.11 97.91,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="375pt" height="620pt"
+ viewBox="0.00 0.00 374.50 620.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 616)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-616 370.5,-616 370.5,4 -4,4"/>
+<!-- 0x7fa6bd03a340 -->
+<g id="node1" class="node">
+<title>0x7fa6bd03a340</title>
+<ellipse fill="none" stroke="black" cx="28.5" cy="-594" rx="18" ry="18"/>
+<text text-anchor="middle" x="28.5" y="-590.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7fa6bd03a340invis_l -->
+<!-- 0x7fa6bd03a340&#45;&gt;0x7fa6bd03a340invis_l -->
+<!-- 0x7fa6bd03a340invis_m -->
+<!-- 0x7fa6bd03a340&#45;&gt;0x7fa6bd03a340invis_m -->
+<!-- 0x7fa6bcee2310 -->
+<g id="node4" class="node">
+<title>0x7fa6bcee2310</title>
+<ellipse fill="none" stroke="black" cx="68.5" cy="-522" rx="18" ry="18"/>
+<text text-anchor="middle" x="68.5" y="-518.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7fa6bd03a340&#45;&gt;0x7fa6bcee2310 -->
+<g id="edge3" class="edge">
+<title>0x7fa6bd03a340&#45;&gt;0x7fa6bcee2310</title>
+<path fill="none" stroke="black" d="M37.18,-577.81C42.32,-568.82 48.94,-557.23 54.77,-547.03"/>
+<polygon fill="black" stroke="black" points="57.91,-548.58 59.84,-538.16 51.84,-545.11 57.91,-548.58"/>
+</g>
+<!-- 0x7fa6bcee2310invis_l -->
+<!-- 0x7fa6bcee2310&#45;&gt;0x7fa6bcee2310invis_l -->
+<!-- 0x7fa6bcee2310invis_m -->
+<!-- 0x7fa6bcee2310&#45;&gt;0x7fa6bcee2310invis_m -->
+<!-- 0x7fa6bcee2520 -->
+<g id="node7" class="node">
+<title>0x7fa6bcee2520</title>
+<ellipse fill="none" stroke="black" cx="108.5" cy="-450" rx="18" ry="18"/>
+<text text-anchor="middle" x="108.5" y="-446.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7fa6bcee2310&#45;&gt;0x7fa6bcee2520 -->
+<g id="edge6" class="edge">
+<title>0x7fa6bcee2310&#45;&gt;0x7fa6bcee2520</title>
+<path fill="none" stroke="black" d="M77.18,-505.81C82.32,-496.82 88.94,-485.23 94.77,-475.03"/>
+<polygon fill="black" stroke="black" points="97.91,-476.58 99.84,-466.16 91.84,-473.11 97.91,-476.58"/>
+</g>
+<!-- 0x7fa6bcee2520invis_l -->
+<!-- 0x7fa6bcee2520&#45;&gt;0x7fa6bcee2520invis_l -->
+<!-- 0x7fa6bcee2520invis_m -->
+<!-- 0x7fa6bcee2520&#45;&gt;0x7fa6bcee2520invis_m -->
+<!-- 0x7fa6bcee23d0 -->
+<g id="node10" class="node">
+<title>0x7fa6bcee23d0</title>
+<ellipse fill="none" stroke="black" cx="148.5" cy="-378" rx="18" ry="18"/>
+<text text-anchor="middle" x="148.5" y="-374.3" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 0x7fa6bcee2520&#45;&gt;0x7fa6bcee23d0 -->
+<g id="edge9" class="edge">
+<title>0x7fa6bcee2520&#45;&gt;0x7fa6bcee23d0</title>
+<path fill="none" stroke="black" d="M117.18,-433.81C122.32,-424.82 128.94,-413.23 134.77,-403.03"/>
+<polygon fill="black" stroke="black" points="137.91,-404.58 139.84,-394.16 131.84,-401.11 137.91,-404.58"/>
+</g>
+<!-- 0x7fa6bcee23d0invis_l -->
+<!-- 0x7fa6bcee23d0&#45;&gt;0x7fa6bcee23d0invis_l -->
+<!-- 0x7fa6bcee23d0invis_m -->
+<!-- 0x7fa6bcee23d0&#45;&gt;0x7fa6bcee23d0invis_m -->
+<!-- 0x7fa6bcfb6a60 -->
+<g id="node13" class="node">
+<title>0x7fa6bcfb6a60</title>
+<ellipse fill="none" stroke="black" cx="188.5" cy="-306" rx="18" ry="18"/>
+<text text-anchor="middle" x="188.5" y="-302.3" font-family="Times,serif" font-size="14.00">5</text>
+</g>
+<!-- 0x7fa6bcee23d0&#45;&gt;0x7fa6bcfb6a60 -->
+<g id="edge12" class="edge">
+<title>0x7fa6bcee23d0&#45;&gt;0x7fa6bcfb6a60</title>
+<path fill="none" stroke="black" d="M157.18,-361.81C162.32,-352.82 168.94,-341.23 174.77,-331.03"/>
+<polygon fill="black" stroke="black" points="177.91,-332.58 179.84,-322.16 171.84,-329.11 177.91,-332.58"/>
+</g>
+<!-- 0x7fa6bcfb6a60invis_l -->
+<!-- 0x7fa6bcfb6a60&#45;&gt;0x7fa6bcfb6a60invis_l -->
+<!-- 0x7fa6bcfb6a60invis_m -->
+<!-- 0x7fa6bcfb6a60&#45;&gt;0x7fa6bcfb6a60invis_m -->
+<!-- 0x7fa6bcee25b0 -->
+<g id="node16" class="node">
+<title>0x7fa6bcee25b0</title>
+<ellipse fill="none" stroke="black" cx="228.5" cy="-234" rx="18" ry="18"/>
+<text text-anchor="middle" x="228.5" y="-230.3" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- 0x7fa6bcfb6a60&#45;&gt;0x7fa6bcee25b0 -->
+<g id="edge15" class="edge">
+<title>0x7fa6bcfb6a60&#45;&gt;0x7fa6bcee25b0</title>
+<path fill="none" stroke="black" d="M197.18,-289.81C202.32,-280.82 208.94,-269.23 214.77,-259.03"/>
+<polygon fill="black" stroke="black" points="217.91,-260.58 219.84,-250.16 211.84,-257.11 217.91,-260.58"/>
+</g>
+<!-- 0x7fa6bcee25b0invis_l -->
+<!-- 0x7fa6bcee25b0&#45;&gt;0x7fa6bcee25b0invis_l -->
+<!-- 0x7fa6bcee25b0invis_m -->
+<!-- 0x7fa6bcee25b0&#45;&gt;0x7fa6bcee25b0invis_m -->
+<!-- 0x7fa6bcee2fa0 -->
+<g id="node19" class="node">
+<title>0x7fa6bcee2fa0</title>
+<ellipse fill="none" stroke="black" cx="268.5" cy="-162" rx="18" ry="18"/>
+<text text-anchor="middle" x="268.5" y="-158.3" font-family="Times,serif" font-size="14.00">7</text>
+</g>
+<!-- 0x7fa6bcee25b0&#45;&gt;0x7fa6bcee2fa0 -->
+<g id="edge18" class="edge">
+<title>0x7fa6bcee25b0&#45;&gt;0x7fa6bcee2fa0</title>
+<path fill="none" stroke="black" d="M237.18,-217.81C242.32,-208.82 248.94,-197.23 254.77,-187.03"/>
+<polygon fill="black" stroke="black" points="257.91,-188.58 259.84,-178.16 251.84,-185.11 257.91,-188.58"/>
+</g>
+<!-- 0x7fa6bcee2fa0invis_l -->
+<!-- 0x7fa6bcee2fa0&#45;&gt;0x7fa6bcee2fa0invis_l -->
+<!-- 0x7fa6bcee2fa0invis_m -->
+<!-- 0x7fa6bcee2fa0&#45;&gt;0x7fa6bcee2fa0invis_m -->
+<!-- 0x7fa6bcee2ee0 -->
+<g id="node22" class="node">
+<title>0x7fa6bcee2ee0</title>
+<ellipse fill="none" stroke="black" cx="308.5" cy="-90" rx="18" ry="18"/>
+<text text-anchor="middle" x="308.5" y="-86.3" font-family="Times,serif" font-size="14.00">8</text>
+</g>
+<!-- 0x7fa6bcee2fa0&#45;&gt;0x7fa6bcee2ee0 -->
+<g id="edge21" class="edge">
+<title>0x7fa6bcee2fa0&#45;&gt;0x7fa6bcee2ee0</title>
+<path fill="none" stroke="black" d="M277.18,-145.81C282.32,-136.82 288.94,-125.23 294.77,-115.03"/>
+<polygon fill="black" stroke="black" points="297.91,-116.58 299.84,-106.16 291.84,-113.11 297.91,-116.58"/>
+</g>
+<!-- 0x7fa6bcee2ee0invis_l -->
+<!-- 0x7fa6bcee2ee0&#45;&gt;0x7fa6bcee2ee0invis_l -->
+<!-- 0x7fa6bcee2ee0invis_m -->
+<!-- 0x7fa6bcee2ee0&#45;&gt;0x7fa6bcee2ee0invis_m -->
+<!-- 0x7fa6bcee2340 -->
+<g id="node25" class="node">
+<title>0x7fa6bcee2340</title>
+<ellipse fill="none" stroke="black" cx="348.5" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="348.5" y="-14.3" font-family="Times,serif" font-size="14.00">9</text>
+</g>
+<!-- 0x7fa6bcee2ee0&#45;&gt;0x7fa6bcee2340 -->
+<g id="edge24" class="edge">
+<title>0x7fa6bcee2ee0&#45;&gt;0x7fa6bcee2340</title>
+<path fill="none" stroke="black" d="M317.18,-73.81C322.32,-64.82 328.94,-53.23 334.77,-43.03"/>
+<polygon fill="black" stroke="black" points="337.91,-44.58 339.84,-34.16 331.84,-41.11 337.91,-44.58"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">submitter</span> <span class="kn">import</span> <span class="n">submit</span>
+<span class="n">submit</span><span class="p">(</span><span class="mi">897</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<p>😃 Result: Accepted</p>
+<p>📥 Input: ``</p>
+<p>📤 Output: ``</p>
+<p>✅ Expected: ``</p>
+<p>💯 Passed Test Case: 37 / 37</p>
+<p>🚀 Runtime: 59 ms, Memory: 13.9 MB</p>
+<p>🉑 Runtime Percentile: better than 16.81%, Memory Percentile: better than 96.51%</p>
+<p>📆 Finished At: 2022-02-24</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+</html>
