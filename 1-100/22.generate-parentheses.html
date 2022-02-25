@@ -124,18 +124,17 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="n">memory</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]}</span>
     <span class="k">def</span> <span class="nf">generateParenthesis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="n">memory</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]}</span>
-
         <span class="k">def</span> <span class="nf">recur</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">memory</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">memory</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
             <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">left</span> <span class="ow">in</span> <span class="n">recur</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
                     <span class="k">for</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">recur</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
                         <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
-            <span class="n">memory</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
             <span class="k">return</span> <span class="n">r</span>
 
         <span class="k">return</span> <span class="n">recur</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -188,8 +187,8 @@ div#notebook {
 <p>📤 Output: ``</p>
 <p>✅ Expected: ``</p>
 <p>💯 Passed Test Case: 8 / 8</p>
-<p>🚀 Runtime: 42 ms, Memory: 14.1 MB</p>
-<p>🉑 Runtime Percentile: better than 68.09%, Memory Percentile: better than 90.99%</p>
+<p>🚀 Runtime: 36 ms, Memory: 14.2 MB</p>
+<p>🉑 Runtime Percentile: better than 86.38%, Memory Percentile: better than 74.05%</p>
 <p>📆 Finished At: 2022-02-25</p>
 
 </div>
