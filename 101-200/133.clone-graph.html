@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>133.clone-graph</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" href="../static/style.min.css" />
+<link rel="stylesheet" href="../static/highlight.min.css" />
+<link rel="stylesheet" href="../static/temporary.min.css" />
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="../static/custom.css">
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}div#notebook-container{
+  padding: 6ex 12ex 8ex 12ex;
+}@media print {
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  } 
+  div.output_wrapper { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+  div.output { 
+    display: block;
+    page-break-inside: avoid; 
+  }
+}
+</style>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="133.-Clone-Graph">133. Clone Graph<a class="anchor-link" href="#133.-Clone-Graph">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h4><p>Given a reference of a node in a <strong><a href="https://en.wikipedia.org/wiki/Connectivity_(graph_theory)#Connected_graph" target="_blank">connected</a></strong> undirected graph.</p><p>Return a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" target="_blank"><strong>deep copy</strong></a> (clone) of the graph.</p><p>Each node in the graph contains a value (<code>int</code>) and a list (<code>List[Node]</code>) of its neighbors.</p><pre>
+class Node {
+    public int val;
+    public List&lt;Node&gt; neighbors;
+}
+</pre><p>&nbsp;</p><p><strong>Test case format:</strong></p><p>For simplicity, each node&#39;s value is the same as the node&#39;s index (1-indexed). For example, the first node with <code>val == 1</code>, the second node with <code>val == 2</code>, and so on. The graph is represented in the test case using an adjacency list.</p><p><b>An adjacency list</b> is a collection of unordered <b>lists</b> used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.</p><p>The given node will always be the first node with <code>val = 1</code>. You must return the <strong>copy of the given node</strong> as a reference to the cloned graph.</p><p>&nbsp;</p>
+<p><strong>Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2019/11/04/133_clone_graph_question.png" style="width: 454px; height: 500px;" />
+<pre>
+<strong>Input:</strong> adjList = [[2,4],[1,3],[2,4],[1,3]]
+<strong>Output:</strong> [[2,4],[1,3],[2,4],[1,3]]
+<strong>Explanation:</strong> There are 4 nodes in the graph.
+1st node (val = 1)&#39;s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+2nd node (val = 2)&#39;s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+3rd node (val = 3)&#39;s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+4th node (val = 4)&#39;s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+</pre>
+
+<p><strong>Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/01/07/graph.png" style="width: 163px; height: 148px;" />
+<pre>
+<strong>Input:</strong> adjList = [[]]
+<strong>Output:</strong> [[]]
+<strong>Explanation:</strong> Note that the input contains one empty list. The graph consists of only one node with val = 1 and it does not have any neighbors.
+</pre>
+
+<p><strong>Example 3:</strong></p><pre>
+<strong>Input:</strong> adjList = []
+<strong>Output:</strong> []
+<strong>Explanation:</strong> This an empty graph, it does not have any nodes.
+</pre><p>&nbsp;</p>
+<p><strong>Constraints:</strong></p><ul>
+    <li>The number of nodes in the graph is in the range <code>[0, 100]</code>.</li>
+    <li><code>1 &lt;= Node.val &lt;= 100</code></li>
+    <li><code>Node.val</code> is unique for each node.</li>
+    <li>There are no repeated edges and no self-loops in the graph.</li>
+    <li>The Graph is connected and all nodes can be visited starting from the given node.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Difficulty:-Medium,-AC-rate:-46.6%">Difficulty: Medium, AC rate: 46.6%<a class="anchor-link" href="#Difficulty:-Medium,-AC-rate:-46.6%">&#182;</a></h4><h4 id="Question-Tags:">Question Tags:<a class="anchor-link" href="#Question-Tags:">&#182;</a></h4><ul>
+<li>Hash Table</li>
+<li>Depth-First Search</li>
+<li>Breadth-First Search</li>
+<li>Graph</li>
+</ul>
+<h4 id="Links:">Links:<a class="anchor-link" href="#Links:">&#182;</a></h4><p>🎁 <a href="https://leetcode.com/problems/clone-graph/description/">Question Detail</a> | 🎉 <a href="https://leetcode.com/problems/clone-graph/solution/">Question Solution</a> | 💬 <a href="https://leetcode.com/problems/clone-graph/discuss/?orderBy=most_votes">Question Discussion</a></p>
+<h4 id="Hints:">Hints:<a class="anchor-link" href="#Hints:">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sample-Test-Case">Sample Test Case<a class="anchor-link" href="#Sample-Test-Case">&#182;</a></h4><p>[[2,4],[1,3],[2,4],[1,3]]</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p>What's your idea?</p>
+<p>BFS</p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a Node.</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">=</span> <span class="n">neighbors</span> <span class="k">if</span> <span class="n">neighbors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">cloneGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Node&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">while</span> <span class="nb">any</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">level</span><span class="p">):</span>
+            <span class="n">next_level</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">level</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">visited</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Node</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+                <span class="n">next_level</span> <span class="o">+=</span> <span class="n">n</span><span class="o">.</span><span class="n">neighbors</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">next_level</span>
+        
+        <span class="k">for</span> <span class="n">origin</span><span class="p">,</span> <span class="n">copy</span> <span class="ow">in</span> <span class="n">visited</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">copy</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">=</span> <span class="p">[</span><span class="n">visited</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">val</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">origin</span><span class="o">.</span><span class="n">neighbors</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">visited</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">visualize_directed_graph</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+
+<span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clone</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cloneGraph</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">clone</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">n1</span><span class="o">.</span><span class="n">val</span>
+<span class="k">assert</span> <span class="n">clone</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">==</span> <span class="p">[]</span>
+
+<span class="n">clone</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cloneGraph</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">clone</span> <span class="ow">is</span> <span class="kc">None</span>
+
+<span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="n">n4</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">n1</span><span class="o">.</span><span class="n">neighbors</span><span class="p">,</span> <span class="n">n2</span><span class="o">.</span><span class="n">neighbors</span><span class="p">,</span> <span class="n">n3</span><span class="o">.</span><span class="n">neighbors</span><span class="p">,</span> <span class="n">n4</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">=</span> <span class="p">[</span><span class="n">n2</span><span class="p">,</span> <span class="n">n4</span><span class="p">],</span> <span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n3</span><span class="p">],</span> <span class="p">[</span><span class="n">n2</span><span class="p">,</span> <span class="n">n4</span><span class="p">],</span> <span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n3</span><span class="p">]</span>
+<span class="n">clone</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cloneGraph</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="n">visualize_directed_graph</span><span class="p">(</span><span class="n">clone</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">clone</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">n1</span><span class="o">.</span><span class="n">val</span>
+<span class="k">assert</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">clone</span><span class="o">.</span><span class="n">neighbors</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">clone</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="n">clone_n2</span> <span class="o">=</span> <span class="n">clone</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">clone_n2</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="n">n2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">clone_n2</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">n2</span><span class="o">.</span><span class="n">val</span>
+<span class="k">assert</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">clone_n2</span><span class="o">.</span><span class="n">neighbors</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">clone_n3</span> <span class="o">=</span> <span class="n">clone_n2</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">clone_n3</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="n">n3</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">clone_n3</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">n3</span><span class="o">.</span><span class="n">val</span>
+<span class="k">assert</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">clone_n3</span><span class="o">.</span><span class="n">neighbors</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">clone_n4</span> <span class="o">=</span> <span class="n">clone</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">clone_n4</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="n">n4</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">clone_n4</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">n4</span><span class="o">.</span><span class="n">val</span>
+<span class="k">assert</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">clone_n4</span><span class="o">.</span><span class="n">neighbors</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.48.0 (20210717.2242)
+ -->
+<!-- Pages: 1 -->
+<svg width="132pt" height="134pt"
+ viewBox="0.00 0.00 131.62 134.40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 130.4)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-130.4 127.62,-130.4 127.62,4 -4,4"/>
+<!-- 0x7fa89702df40 -->
+<g id="node1" class="node">
+<title>0x7fa89702df40</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-52.14" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-48.44" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0x7fa89702dfa0 -->
+<g id="node2" class="node">
+<title>0x7fa89702dfa0</title>
+<ellipse fill="none" stroke="black" cx="105.62" cy="-73.86" rx="18" ry="18"/>
+<text text-anchor="middle" x="105.62" y="-70.16" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0x7fa89702df40&#45;&gt;0x7fa89702dfa0 -->
+<g id="edge1" class="edge">
+<title>0x7fa89702df40&#45;&gt;0x7fa89702dfa0</title>
+<path fill="none" stroke="black" d="M33.58,-61.62C45.73,-66.07 62.92,-70.61 77.46,-73.34"/>
+<polygon fill="black" stroke="black" points="77.03,-76.81 87.47,-74.98 78.17,-69.91 77.03,-76.81"/>
+</g>
+<!-- 0x7fa89702d280 -->
+<g id="node3" class="node">
+<title>0x7fa89702d280</title>
+<ellipse fill="none" stroke="black" cx="62.28" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="62.28" y="-14.3" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 0x7fa89702df40&#45;&gt;0x7fa89702d280 -->
+<g id="edge2" class="edge">
+<title>0x7fa89702df40&#45;&gt;0x7fa89702d280</title>
+<path fill="none" stroke="black" d="M35.36,-46.68C38.48,-44.7 41.73,-42.39 44.86,-39.95"/>
+<polygon fill="black" stroke="black" points="47.3,-42.47 52.66,-33.33 42.77,-37.13 47.3,-42.47"/>
+</g>
+<!-- 0x7fa89702dfa0&#45;&gt;0x7fa89702df40 -->
+<g id="edge3" class="edge">
+<title>0x7fa89702dfa0&#45;&gt;0x7fa89702df40</title>
+<path fill="none" stroke="black" d="M90.04,-64.38C77.89,-59.93 60.71,-55.4 46.17,-52.66"/>
+<polygon fill="black" stroke="black" points="46.59,-49.19 36.16,-51.02 45.46,-56.09 46.59,-49.19"/>
+</g>
+<!-- 0x7fa89702dfd0 -->
+<g id="node4" class="node">
+<title>0x7fa89702dfd0</title>
+<ellipse fill="none" stroke="black" cx="61.62" cy="-108.4" rx="18" ry="18"/>
+<text text-anchor="middle" x="61.62" y="-104.7" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 0x7fa89702dfa0&#45;&gt;0x7fa89702dfd0 -->
+<g id="edge4" class="edge">
+<title>0x7fa89702dfa0&#45;&gt;0x7fa89702dfd0</title>
+<path fill="none" stroke="black" d="M88.31,-79.48C85.2,-81.49 81.97,-83.82 78.86,-86.29"/>
+<polygon fill="black" stroke="black" points="76.39,-83.8 71.11,-92.99 80.97,-89.1 76.39,-83.8"/>
+</g>
+<!-- 0x7fa89702d280&#45;&gt;0x7fa89702df40 -->
+<g id="edge5" class="edge">
+<title>0x7fa89702d280&#45;&gt;0x7fa89702df40</title>
+<path fill="none" stroke="black" d="M44.92,-23.46C41.8,-25.44 38.55,-27.75 35.42,-30.19"/>
+<polygon fill="black" stroke="black" points="32.98,-27.67 27.62,-36.81 37.51,-33.01 32.98,-27.67"/>
+</g>
+<!-- 0x7fa89702d280&#45;&gt;0x7fa89702dfd0 -->
+<g id="edge6" class="edge">
+<title>0x7fa89702d280&#45;&gt;0x7fa89702dfd0</title>
+<path fill="none" stroke="black" d="M56.69,-35.39C55.21,-48.26 54.81,-66.05 55.55,-80.85"/>
+<polygon fill="black" stroke="black" points="52.07,-81.27 56.29,-90.98 59.06,-80.75 52.07,-81.27"/>
+</g>
+<!-- 0x7fa89702dfd0&#45;&gt;0x7fa89702dfa0 -->
+<g id="edge7" class="edge">
+<title>0x7fa89702dfd0&#45;&gt;0x7fa89702dfa0</title>
+<path fill="none" stroke="black" d="M78.94,-102.78C82.04,-100.78 85.28,-98.44 88.38,-95.97"/>
+<polygon fill="black" stroke="black" points="90.85,-98.46 96.13,-89.28 86.28,-93.17 90.85,-98.46"/>
+</g>
+<!-- 0x7fa89702dfd0&#45;&gt;0x7fa89702d280 -->
+<g id="edge8" class="edge">
+<title>0x7fa89702dfd0&#45;&gt;0x7fa89702d280</title>
+<path fill="none" stroke="black" d="M67.21,-91.01C68.69,-78.14 69.09,-60.35 68.35,-45.55"/>
+<polygon fill="black" stroke="black" points="71.83,-45.13 67.6,-35.42 64.84,-45.64 71.83,-45.13"/>
+</g>
+</g>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">submitter</span> <span class="kn">import</span> <span class="n">submit</span>
+<span class="n">submit</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<p>😃 Result: Accepted</p>
+<p>📥 Input: ``</p>
+<p>📤 Output: ``</p>
+<p>✅ Expected: ``</p>
+<p>💯 Passed Test Case: 22 / 22</p>
+<p>🚀 Runtime: 79 ms, Memory: 16.7 MB</p>
+<p>🉑 Runtime Percentile: better than 7.94%, Memory Percentile: better than 10.15%</p>
+<p>📆 Finished At: 2022-02-27</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+</body>
+
+ 
+
+
+</html>
